@@ -1,0 +1,16 @@
+[credential "https://gitee.com"]
+	provider = generic
+[user]
+	email = 1873475824@qq.com
+	name = elf004
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[core]
+	autocrlf = false
+[http "https://github.com"]
+	proxy = http://127.0.0.1:8118
+[safe]
+	directory = *
