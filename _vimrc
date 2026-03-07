@@ -228,3 +228,23 @@ autocmd FileType markdown setlocal wrap linebreak nolist textwidth=0 wrapmargin=
 " YAML 文件使用 2 空格缩进
 autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 expandtab
 
+
+" ==================================================
+" 设置leader为空格，然后vim中打开terminal快捷键
+" ==================================================
+
+" 设置 leader 键为空格
+let mapleader = " "
+
+" 使用 PowerShell 打开当前文件目录
+nnoremap <leader>t :!start pwsh -NoExit -Command "cd '%:p:h'"<CR>
+
+" 使用 cmd 打开当前文件目录  
+" nnoremap <leader>c :!start cmd /k cd /d "%:p:h"<CR>
+
+" 使用 Windows Terminal
+" nnoremap <leader>w :!wt -d "%:p:h"<CR>
+
+" 使用 Vim 内置终端
+nnoremap <leader>vt :cd %:h \| below terminal ++rows=6<CR>
+
