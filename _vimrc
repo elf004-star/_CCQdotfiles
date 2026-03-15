@@ -248,3 +248,18 @@ nnoremap <leader>t :!start pwsh -NoExit -Command "cd '%:p:h'"<CR>
 " 使用 Vim 内置终端
 nnoremap <leader>vt :cd %:h \| below terminal ++rows=6<CR>
 
+" ==================================================
+" 插入模式快捷键：Ctrl + ] 跳出括号、引号
+" ==================================================
+" 逻辑：寻找光标后的下一个闭合符号（) ] } " ' >）并跳到其右侧
+inoremap <C-]> <Esc>:call search('[)}\]"'' \> ]', 'z')<CR>a
+
+" 如果你喜欢用 Tab 键跳出括号（仅当光标后紧跟括号时生效）
+inoremap <expr> <Tab> search('\%#[:)\]}"'']', 'n') ? '<Right>' : '<Tab>'
+
+" ==================================================
+" 取消自动延续注释
+" ==================================================
+" r: 在插入模式下按 <Enter> 不自动插入注释符号
+" o: 在普通模式下按 o 或 O 不自动插入注释符号
+autocmd FileType * setlocal formatoptions-=r formatoptions-=o
