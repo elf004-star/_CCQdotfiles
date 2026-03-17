@@ -2,6 +2,15 @@
 " 基础配置
 " ==================================================
 
+call plug#begin('C:\Users\Allen\vimfiles\plugged')
+
+" 在这里添加你的插件
+Plug 'jiangmiao/auto-pairs'
+
+call plug#end()
+
+" 其他个性化配置
+
 " 关闭 vi 兼容模式，使用完整的 Vim 功能
 set nocompatible
 
