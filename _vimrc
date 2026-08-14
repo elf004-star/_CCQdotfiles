@@ -2,7 +2,10 @@
 " 基础配置
 " ==================================================
 
-call plug#begin('C:\Users\Allen\vimfiles\plugged')
+" 不传目录时，vim-plug 自动使用平台默认值：
+" Windows 为 ~/vimfiles/plugged，Unix 为 ~/.vim/plugged
+" 避免硬编码用户名（如 C:\Users\Allen\...）
+call plug#begin()
 
 " 在这里添加你的插件
 Plug 'jiangmiao/auto-pairs'
@@ -101,9 +104,11 @@ if has("win32") || has("win64") || has("win16")
         let &t_EI = "\<Esc>[2 q"   " 正常模式：方块
         let &t_SR = "\<Esc>[4 q"   " 替换模式：下划线
         
-        " 启动和退出时设置终端光标形状（使用 silent 避免输出提示）
-        autocmd VimEnter * silent !echo -ne "\e[2 q"  " 启动时：方块
-        autocmd VimLeave * silent !echo -ne "\e[0 q"  " 退出时：默认
+        " 启动和退出时设置终端光标形状
+        " 用 system() 替代 !：! 命令在打开文件时会出现 "Press ENTER" 提示，
+        " system() 会捕获输出，不显示也不触发提示
+        autocmd VimEnter * silent! call system('echo -ne "\e[2 q"')  " 启动时：方块
+        autocmd VimLeave * silent! call system('echo -ne "\e[0 q"')  " 退出时：默认
     endif
     
     " 设置光标行高亮样式
@@ -120,9 +125,10 @@ else
     let &t_EI = "\e[2 q"   " 正常模式：方块
     let &t_SR = "\e[4 q"   " 替换模式：下划线
     
-    " 启动和退出时设置终端光标形状（使用 silent 避免输出提示）
-    autocmd VimEnter * silent !echo -ne '\e[2 q'  " 启动时：方块
-    autocmd VimLeave * silent !echo -ne '\e[0 q'  " 退出时：默认
+    " 启动和退出时设置终端光标形状
+    " 用 system() 替代 !：! 命令在打开文件时会出现 "Press ENTER" 提示
+    autocmd VimEnter * silent! call system('echo -ne "\e[2 q"')  " 启动时：方块
+    autocmd VimLeave * silent! call system('echo -ne "\e[0 q"')  " 退出时：默认
     
     " 检测终端类型，设置颜色支持
     if &term =~ "xterm" || &term =~ "screen" || &term =~ "tmux"
