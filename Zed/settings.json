@@ -54,7 +54,7 @@
         "pi-acp": {
             "default_config_options": {
                 "thought_level": "medium",
-                "model": "deepseek/deepseek-v4-pro"
+                "model": "deepseek/deepseek-v4-flash"
             },
             "type": "custom",
             "command": "pi-acp",
