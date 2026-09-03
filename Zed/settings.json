@@ -54,7 +54,7 @@
         "pi-acp": {
             "default_config_options": {
                 "thought_level": "medium",
-                "model": "google/gemini-2.5-flash"
+                "model": "deepseek/deepseek-v4-pro"
             },
             "type": "custom",
             "command": "pi-acp",
