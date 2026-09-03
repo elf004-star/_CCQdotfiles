@@ -9,6 +9,7 @@ Windows 个人 dotfiles 仓库。仓库里的配置文件通过 `mklink` 符号�
 
 **核心约束:仓库会在多台机器/多个用户名下同步**(README 与 NOTES.md 反复强调),因此:
 - cmd 命令一律用 `%USERPROFILE%`(cmd 不展开 `~`,也不硬编码用户名)
+- Zed 配置装在 `%APPDATA%\Zed` 下(`%APPDATA%` 同为环境变量),install 命令用 `%APPDATA%` 而非 `%USERPROFILE%`
 - Vim/SSH 配置里用 `~`,vim-plug 不传目录参数以自动适配平台默认值
 - 新增任何硬编码 `C:\Users\<某用户名>` 的写法都是错误,除非是临时调试
 
@@ -21,10 +22,13 @@ mklink "%USERPROFILE%\_vimrc"          "%USERPROFILE%\_CCQdotfiles\_vimrc"
 mklink "%USERPROFILE%\.gitconfig"      "%USERPROFILE%\_CCQdotfiles\.gitconfig"
 mklink "%USERPROFILE%\.gitconfig-gitea" "%USERPROFILE%\_CCQdotfiles\.gitconfig-gitea"
 mklink "%USERPROFILE%\.ssh\config"     "%USERPROFILE%\_CCQdotfiles\.ssh\config"
+mklink "%APPDATA%\Zed\keymap.json"     "%USERPROFILE%\_CCQdotfiles\Zed\keymap.json"
+mklink "%APPDATA%\Zed\settings.json"   "%USERPROFILE%\_CCQdotfiles\Zed\settings.json"
+mklink "%APPDATA%\Zed\tasks.json"       "%USERPROFILE%\_CCQdotfiles\Zed\tasks.json"
 ```
 
-`.ssh\config` 前需确保 `%USERPROFILE%\.ssh` 目录已存在。
-编辑即生效(链接到真实文件),改完文件无需任何构建步骤。
+`.ssh\config` 前需确保 `%USERPROFILE%\.ssh` 目录已存在;Zed 三个配置需先装过 Zed
+(`%APPDATA%\Zed` 目录存在)。编辑即生效(链接到真实文件),改完文件无需任何构建步骤。
 
 ## 配置架构(需跨文件理解的部分)
 

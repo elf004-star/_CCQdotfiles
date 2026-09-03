@@ -1,0 +1,89 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+    "show_edit_predictions": false,
+    "languages": {
+        "HTML": {
+            "show_edit_predictions": false
+        }
+    },
+    "cli_default_open_behavior": "new_window",
+    "language_models": {
+        "openai": {
+            "api_url": "https://api.longcat.chat/openai/v1", // 官方文档的端点路径
+            "available_models": [
+                {
+                    "name": "LongCat-2.0", // 模型名称
+                    "display_name": "LongCat 2.0", // 在 Zed 里显示的名称
+                    "max_tokens": 1000000 // 模型支持的最大上下文长度，LongCat-2.0 是 1M [citation:10]
+                }
+            ]
+        }
+    },
+    "agent": {
+        "default_model": {
+            "effort": "medium",
+            "provider": "google",
+            "model": "gemini-3.5-flash",
+            "enable_thinking": true
+        },
+        "commit_message_model": {
+            "provider": "deepseek",
+            "model": "deepseek-v4-flash"
+        },
+        "favorite_models": [],
+        "model_parameters": []
+    },
+    "proxy": "http://localhost:8118",
+    "vim_mode": true,
+    "agent_servers": {
+        "codex-acp": {
+            "default_config_options": {
+                "mode": "agent-full-access"
+            },
+            "type": "custom",
+            "command": "codex-acp",
+            "args": []
+        },
+        "pi-acp": {
+            "default_config_options": {
+                "thought_level": "medium",
+                "model": "google/gemini-2.5-flash"
+            },
+            "type": "custom",
+            "command": "pi-acp",
+            "args": []
+        },
+        "claude-acp": {
+            "favorite_config_option_values": {
+                "model": [
+                    "sonnet"
+                ]
+            },
+            "default_config_options": {
+                "fast": true,
+                "model": "sonnet",
+                "mode": "auto"
+            },
+            "type": "custom",
+            "command": "claude-agent-acp",
+            "args": []
+        }
+    },
+    "ui_font_size": 18,
+    "buffer_font_size": 18,
+    "terminal": {
+        "font_family": "CaskaydiaCove Nerd Font Mono"
+    },
+    "theme": {
+        "mode": "dark",
+        "light": "One Light",
+        "dark": "Catppuccin Mocha - No Italics",
+    },
+}
