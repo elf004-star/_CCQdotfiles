@@ -21,6 +21,8 @@ Windows 个人 dotfiles 仓库。仓库里的配置文件通过 `mklink` 符号�
 mklink "%USERPROFILE%\_vimrc"          "%USERPROFILE%\_CCQdotfiles\_vimrc"
 mklink "%USERPROFILE%\.gitconfig"      "%USERPROFILE%\_CCQdotfiles\.gitconfig"
 mklink "%USERPROFILE%\.gitconfig-gitea" "%USERPROFILE%\_CCQdotfiles\.gitconfig-gitea"
+mklink "%USERPROFILE%\.gitconfig-github-ChunqianChen" "%USERPROFILE%\_CCQdotfiles\.gitconfig-github-ChunqianChen"
+mklink "%USERPROFILE%\.gitconfig-github-elf004star"   "%USERPROFILE%\_CCQdotfiles\.gitconfig-github-elf004star"
 mklink "%USERPROFILE%\.ssh\config"     "%USERPROFILE%\_CCQdotfiles\.ssh\config"
 mklink "%APPDATA%\Zed\keymap.json"     "%USERPROFILE%\_CCQdotfiles\Zed\keymap.json"
 mklink "%APPDATA%\Zed\settings.json"   "%USERPROFILE%\_CCQdotfiles\Zed\settings.json"
@@ -32,16 +34,24 @@ mklink "%APPDATA%\Zed\tasks.json"       "%USERPROFILE%\_CCQdotfiles\Zed\tasks.js
 
 ## 配置架构(需跨文件理解的部分)
 
-### Git 身份分层(`.gitconfig` + `.gitconfig-gitea`)
+### Git 身份分层(`.gitconfig` + `includeIf`)
 
-- `.gitconfig` = 基础全局配置:**elf004** 身份、gitee 凭证 provider、
+- `.gitconfig` = 基础全局配置:**elf004** 身份(1873475824@qq.com)、gitee 凭证 provider、
   `autocrlf=false`、GitHub HTTP 代理 `127.0.0.1:8118`。
-- 关键机制是分层覆盖:
-  `.gitconfig` 里的 `includeIf "gitdir:~/code/gitea/"` → 加载 `.gitconfig-gitea`,
-  把身份覆盖为 **CCQ**(chunqianchen006@gmail.com)。
-- **后果:在 `~/code/gitea/` 下任何仓库提交,身份是 CCQ;其余地方是 elf004。**
-  新增远程/仓库或排查"提交作者不对"问题时,先看仓库路径是否命中此 includeIf。
-  验证:`git config --list --show-origin`(在 gitea 目录内外各看一次)。
+- 关键机制是分层覆盖:按仓库路径 `includeIf` 加载不同身份文件,覆盖全局 user 身份:
+
+  | 命中路径(gitdir) | include 文件 | 覆盖后身份 |
+  |---|---|---|
+  | `~/code/gitea/` | `~/.gitconfig-gitea` | **CCQ**(chunqianchen006@gmail.com) |
+  | `~/code/github(ChunqianChen)/` | `~/.gitconfig-github-ChunqianChen` | **ChunqianChen**(chunqianchen006@gmail.com) |
+  | `~/code/github(elf004-star)/` | `~/.gitconfig-github-elf004star` | **elf004-star**(1873475824@qq.com) |
+
+- **后果:上面三个目录内的仓库按对应身份提交;其余地方是 elf004。**
+  新增远程/仓库或排查"提交作者不对"问题时,先看仓库路径是否命中某个 includeIf。
+  验证:`git config --list --show-origin`(在对应目录内外各看一次)。
+- **注意:includeIf 只改提交者身份(user.name/email),不影响 SSH 推送认证。**
+  本机 SSH 默认密钥登录 GitHub 是 elf004-star;若需向 `github.com/ChunqianChen/*`
+  等其它账号推送,得为对应账号单独配密钥/主机别名。
 
 ### 网络/代理分层(SSH + Git)
 

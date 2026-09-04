@@ -9,6 +9,8 @@
 | `_vimrc` | `%USERPROFILE%\_vimrc` | Vim 配置 |
 | `.gitconfig` | `%USERPROFILE%\.gitconfig` | Git 全局配置（含 GitHub 代理、Gitee 凭证等） |
 | `.gitconfig-gitea` | `%USERPROFILE%\.gitconfig-gitea` | Gitea 专属身份配置，由 `.gitconfig` 的 `includeIf` 在 `~/code/gitea/` 目录下自动加载，覆盖全局 user 身份 |
+| `.gitconfig-github-ChunqianChen` | `%USERPROFILE%\.gitconfig-github-ChunqianChen` | GitHub(ChunqianChen) 身份配置，由 `.gitconfig` 的 `includeIf` 在 `~/code/github(ChunqianChen)/` 目录下自动加载，覆盖全局 user 身份 |
+| `.gitconfig-github-elf004star` | `%USERPROFILE%\.gitconfig-github-elf004star` | GitHub(elf004-star) 身份配置，由 `.gitconfig` 的 `includeIf` 在 `~/code/github(elf004-star)/` 目录下自动加载，覆盖全局 user 身份 |
 | `.ssh/config` | `%USERPROFILE%\.ssh\config` | SSH 客户端配置（GitHub 本地代理、自建 Gitea 的 Host 别名等） |
 | `Zed/keymap.json` | `%APPDATA%\Zed\keymap.json` | Zed 按键映射（vim 模式、终端面板等快捷键） |
 | `Zed/settings.json` | `%APPDATA%\Zed\settings.json` | Zed 编辑器设置（vim_mode、主题/字体、AI 服务商、本地代理等） |
@@ -28,6 +30,8 @@
 mklink "%USERPROFILE%\_vimrc" "%USERPROFILE%\_CCQdotfiles\_vimrc"
 mklink "%USERPROFILE%\.gitconfig" "%USERPROFILE%\_CCQdotfiles\.gitconfig"
 mklink "%USERPROFILE%\.gitconfig-gitea" "%USERPROFILE%\_CCQdotfiles\.gitconfig-gitea"
+mklink "%USERPROFILE%\.gitconfig-github-ChunqianChen" "%USERPROFILE%\_CCQdotfiles\.gitconfig-github-ChunqianChen"
+mklink "%USERPROFILE%\.gitconfig-github-elf004star" "%USERPROFILE%\_CCQdotfiles\.gitconfig-github-elf004star"
 mklink "%USERPROFILE%\.ssh\config" "%USERPROFILE%\_CCQdotfiles\.ssh\config"
 mklink "%APPDATA%\Zed\keymap.json" "%USERPROFILE%\_CCQdotfiles\Zed\keymap.json"
 mklink "%APPDATA%\Zed\settings.json" "%USERPROFILE%\_CCQdotfiles\Zed\settings.json"

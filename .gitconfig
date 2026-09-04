@@ -19,3 +19,9 @@
 
 [includeIf "gitdir:~/code/gitea/"]
 	path = ~/.gitconfig-gitea
+
+[includeIf "gitdir:~/code/github(ChunqianChen)/"]
+	path = ~/.gitconfig-github-ChunqianChen
+
+[includeIf "gitdir:~/code/github(elf004-star)/"]
+	path = ~/.gitconfig-github-elf004star
