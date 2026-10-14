@@ -72,8 +72,10 @@ GitHub 走了两层本地代理,自建 Gitea 走 cpolar 隧道:
 - 大量 `has("win32")` vs Unix 分支(光标形状、字体、编码、fileformats 等)。
 - vim-plug 用 `call plug#begin()` **不传目录**——自动按平台选插件目录
   (Windows `~/vimfiles/plugged`,Unix `~/.vim/plugged`),这是跨机器通用的关键。
-- 剪贴板同步用 `TextYankPost` 显式写 `@+`,而非 `set clipboard=unnamedplus`:
-  Windows 上 unnamedplus 有 bug(y/yy 不同步,见 vim/vim#18357)。
+- 剪贴板同步是**双向**的,由两条互补配置实现(缺一不可):
+  - 粘贴方向:`set clipboard=unnamedplus`——让 `"` 读取系统剪贴板,`p` 能粘贴外部内容。
+  - 复制方向:`TextYankPost` 显式 `let @+ = @"`——因 Windows 上 unnamedplus 有 bug,
+    `y/yy` 只写 `"` 不写 `+`(见 vim/vim#18357,本机 9.1.1365 实测复现,退出也不补写)。
 
 ## Vim 常用命令
 

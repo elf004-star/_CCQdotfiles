@@ -185,17 +185,21 @@ endif
 nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 
 " ==================================================
-" 系统剪贴板同步
+" 系统剪贴板同步（双向）
 " ==================================================
-" 按 y 复制时，同时写入 Vim 无名寄存器 " 和系统剪贴板 +。
-" 注意：Windows 上 set clipboard=unnamedplus 存在已知 bug（y/yy 不会同步到
-" 系统剪贴板，见 vim/vim#18357），所以这里改用 TextYankPost 显式写入 + 寄存器，
-" 等效于 "+y。即使剪贴板写入失败，y 复制到无名寄存器也不受影响。
+" 目标：在 Vim 里能 p 粘贴记事本等其它应用复制的内容；在 Vim 里 y/yy 也能被其它应用粘贴。
+"
+" 两条路各有各的坑，缺一不可：
+"   1. 粘贴方向：set clipboard=unnamedplus，让无名寄存器 " 读取系统剪贴板 +。
+"   2. 复制方向：Windows Vim 上 unnamedplus 有已知 bug——y/yy 只写 " 不写 +，
+"      系统剪贴板保持旧值（vim/vim#18357，本机 Vim 9.1.1365 实测复现，退出时也不会补写）。
+"      故用 TextYankPost 显式 `let @+ = @"`，实测能立即写入系统剪贴板，补上这一方向。
 
 if has('clipboard')
+    set clipboard=unnamedplus
     augroup yank_system_clipboard
         autocmd!
-        autocmd TextYankPost * if v:event.operator ==# 'y' | let @+ = @" | endif
+        autocmd TextYankPost * let @+ = @"
     augroup END
 endif
 
